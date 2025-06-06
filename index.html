@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Willem II nieuws</title>
+<script>
+function updateKlok() {
+    const nu = new Date();
+    document.getElementById("klok").textContent = nu.toLocaleTimeString();
+}
+setInterval(updateKlok, 1000);
+updateKlok();
+</script>
+
+    <style>
+        body {
+            background-color: #e6f0ff; /* hele pagina lichtblauw */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-bottom: 100px; /* ruimte onderaan voor vaste vakjes */
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            padding: 20px;
+            flex-wrap: wrap; /* Zorgt dat elementen bij kleine schermen onder elkaar vallen */
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 650px;
+        }
+
+        .historie {
+            background-color: lightblue;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-y: auto;
+        }
+
+        .klein-vakje {
+            background-color: lightgreen;
+            padding: 15px;
+            border-radius: 8px;
+            color: #000;
+        }
+
+        .gekleurdevakje {
+            background-color: lightyellow;
+            padding: 15px;
+            border-radius: 8px;
+            color: #000;
+        }
+
+        .favoriet-speler {
+            background-color: #fffbe6;
+            border-left: 5px solid #004aad;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            color: #000;
+            margin-top: 10px;
+            max-width: 300px;
+        }
+
+        .favoriet-speler input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .favoriet-speler button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .favoriet-speler #verzendKnop {
+            background-color: #004aad;
+            color: white;
+        }
+
+        .favoriet-speler #verzendKnop:hover {
+            background-color: #003a8c;
+        }
+
+        .favoriet-speler #verwijderKnop {
+            background-color: #cc3333;
+            color: white;
+        }
+
+        .favoriet-speler #verwijderKnop:hover {
+            background-color: #a82a2a;
+        }
+
+        .spelerslijst {
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(to right, red, white, blue);
+            padding: 15px;
+            color: white;
+            overflow-y: auto;
+            border-radius: 8px;
+        }
+
+        img.teamfoto {
+            float: right;
+            width: 800px;
+            margin-left: 12px;
+        }
+
+        p.spelers-titel {
+            font-size: 22px;
+            margin-left: 740px;
+        }
+
+        /* Nieuwe styling voor de vakjes onderaan */
+        .onderkant-vakjes {
+            position: fixed;
+            bottom: 10px; /* 10px boven onderkant */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .vakje {
+            width: 150px;
+            padding: 20px;
+            border-radius: 8px;
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .vakje.rood {
+            background-color: #ff6b6b;
+        }
+
+        .vakje.wit {
+            background-color: #F2F5F7;
+        }
+
+        .vakje.blauw {
+            background-color: #4CA0E0;
+        }
+
+        /* Toegevoegd voor de nieuwe tekstblokken onderaan */
+        .tekstbalken {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tekstvak {
+            flex: 1;
+            max-width: 300px;
+            min-height: 500px;
+            background-color: #d9eaff;
+            padding: 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #003366;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .tekstvak-breed {
+            width: 100%;          /* neemt volledige breedte */
+            max-width: 1200px;    /* max breedte voor leesbaarheid */
+            margin: 20px auto;    /* ruimte boven en onder en centreren */
+            padding: 20px;
+            background-color: #94fcc5;
+            border-radius: 8px;
+            font-size: 18px;
+            color: #003366;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            white-space: normal;
+            word-wrap: break-word;
+            min-height: 300px;    /* minimaal wat hoogte */
+         }
+            img.ajaxvsWillemII {
+            float: left;
+            min-height: 200px;
+            width: 400px;
+            margin-left: 0;
+         }
+           img.psvvsWillemII {
+            width: 400px;
+            min-height: 200px;
+            margin-left: 0;
+         }
+         img.feyenoordvsWillemII {
+            width: 400px;
+            min-height: 200px;
+            margin-left: 0;
+         }
+         img.twentevsWillemII {
+            width: 400px;
+            min-height: 200px;
+            margin-left: 0;
+         }
+         .tekstvak-ervaring {
+            width: 100%;          /* neemt volledige breedte */
+            max-width: 1200px;    /* max breedte voor leesbaarheid */
+            margin: 20px auto;    /* ruimte boven en onder en centreren */
+            padding: 20px;
+            background-color: #f35e68;
+            border-radius: 8px;
+            font-size: 18px;
+            color: #003366;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            white-space: normal;
+            word-wrap: break-word;
+            min-height: 300px;    /* minimaal wat hoogte */
+         }
+
+</style>
+</head>
+<body>
+
+    <h1>Dit is een pagina waar de meest actuele nieuws over Willem II in staat. Op deze pagina kom je van alles te weten over wat Willem II is en hoe het is ontstaan.</h1>
+    <p class="spelers-titel">Spelers van Willem II:</p>
+    <img class="teamfoto" src="https://www.willem-ii.nl/sites/default/files/styles/header/public/2023-10/Elftal.jpg?h=bdbb7b79&itok=M3iv9V57" alt="Foto">
+
+    <div class="container">
+
+        <div class="links">
+            <div class="historie">
+                <h2>Historie Willem II</h2>
+                <p>Willem II is een Nederlandse voetbalclub uit Tilburg, opgericht in 1896 en vernoemd naar koning Willem II. De club staat bekend om zijn lange historie en trouwe supporters. Willem II heeft meerdere malen in de hoogste Nederlandse voetbalcompetitie gespeeld, de Eredivisie.</p>
+                <p>De club beleefde haar grootste successen in de jaren 1950 en 1960, toen ze drie keer kampioen van Nederland werden (in 1916, 1952 en 1955). Ook won Willem II enkele keren de KNVB-beker. In recente decennia heeft de club zich vaak staande gehouden in de Eredivisie, hoewel ze ook soms in de Eerste Divisie (de tweede klasse) hebben gespeeld.</p>
+                <p>Willem II speelt zijn thuiswedstrijden in het Koning Willem II Stadion in Tilburg. De club staat bekend om een fanatieke aanhang en een jeugdopleiding die talenten ontwikkelt voor het Nederlandse voetbal.</p>
+            </div>
+
+            <div class="klein-vakje">
+                <h3>Willem II 2024/2025 (degradatie?)</h3>
+                <p>Het seizoen 2024/2025 is voor Willem II een uitdagend jaar in de Eredivisie. Na twee seizoenen in de Keuken Kampioen Divisie keerde de club terug naar het hoogste niveau, maar bevindt zich momenteel in de gevarenzone van de competitie. Willem II staat momenteel op de 16e plaats, wat hen in aanmerking brengt voor de nacompetitie om hun Eredivisie-status te behouden. De nacompetitie voor handhaving in de Eredivisie wordt gespeeld tussen de nummers 16 tot en met 18 van de Eredivisie en de nummers 3 tot en met 6 van de Keuken Kampioen Divisie. De exacte indeling en wedstrijden worden later bekendgemaakt. De club heeft recent te maken gehad met interne veranderingen, waaronder het vertrek van technisch directeur Tom Caluwé en hoofdtrainer Peter Maes, die op 30 april 2025 vertrok na een reeks van acht opeenvolgende nederlagen. Kristof Aelbrecht is aangesteld als interim-hoofdtrainer. Willem II zal zich moeten herpakken om hun positie in de Eredivisie te behouden en zich te handhaven in de nacompetitie.</p>
+            </div>
+
+            <div class="gekleurdevakje">
+                <h2>Beste Spelers van Willem II Ooit</h2>
+                <p>
+                  Willem II heeft in de loop der jaren een belangrijke rol gespeeld als kweekvijver voor toptalent.
+                  Zo begon <strong>Marc Overmars</strong> zijn profcarrière in Tilburg voordat hij furore maakte bij Ajax, Arsenal en Barcelona.
+                  Ook <strong>Jaap Stam</strong> speelde een cruciaal seizoen bij Willem II voordat hij doorbrak bij PSV en Manchester United.
+                </p>
+                <p>
+                  <strong>Joris Mathijsen</strong> is een echte clubicoon: opgeleid bij Willem II en later international, zelfs in de WK-finale van 2010.
+                  <strong>Virgil van Dijk</strong> brak niet door in het eerste, maar begon zijn ontwikkeling in de jeugd van de club.
+                </p>
+                <p>
+                  Meer recent stal <strong>Fran Sol</strong> de harten van fans met zijn goals en inzet. Ook <strong>Pol Llonch</strong> en <strong>Finn Stokkers</strong> stonden bekend
+                  om hun werklust en clubliefde. Willem II is misschien geen topclub, maar wél een club waar grote carrières vaak beginnen.
+                </p>
+            </div>
+
+            <!-- Favoriet speler blok onder het gele vak -->
+            <div class="favoriet-speler">
+                <h3>Wie is jouw favoriete Willem II-speler?</h3>
+                <p>Laat hieronder jouw favoriet achter:</p>
+                <input type="text" id="favorietInput" placeholder="Bijv. Fran Sol">
+                <button id="verzendKnop">Verstuur</button>
+                <button id="verwijderKnop">Verwijder favorieten</button>
+            </div>
+       
+        <div class="spelerslijst">
+            <p style="font-size: 22px; margin-left: 10px;">Spelers van Willem II:</p>
+            <div>Jeremy Bokila</div>
+            <div>Ringo Meerveld</div>
+            <div>Jens Mathijsen</div>
+            <div>Kyan Vaesen</div>
+            <div>Cisse Sandra</div>
+            <div>Tommy St. Jago</div>
+            <div>Erik Schouten</div>
+            <div>Emilio Kehrer</div>
+            <div>Raffael Behounek</div>
+            <div>Jesse Bosch</div>
+            <div>Mickaël Tirpan</div>
+            <div>Amine Lachkar</div>
+            <div>Miodrag Pivaš</div>
+            <div>Boris Lambert</div>
+            <div>Youssef Sylla</div>
+            <div>Dennis Kaygin</div>
+            <div>Thomas Didillon</div>
+            <div>Dani Mathieu</div>
+            <div>Nick Doodeman</div>
+            <div>Runar Thor S.</div>
+            <div>Rob Nizet</div>
+            <div>Amar Fatah</div>
+            <div>Patrick Joosten</div>
+            <div>Uriel van Aalst</div>
+            <div>Maarten Schut</div>
+            <div>Connor van den Berg</div>
+            <div>Per van Loon</div>
+        </div>
+
+    </div>
+<div class="onderkant-vakjes">
+    <div class="vakje rood">Wil</div>
+    <div class="vakje wit">lem</div>
+    <div class="vakje blauw">II</div>
+</div>
+
+<!-- Hier toegevoegd: nieuwe tekstblokken voor Top 3 Willem II -->
+<p style="text-align: center; font-size: 20px; font-weight: bold; margin-top: 40px;">De 3 beroemste verhalen van Willem II</p>
+<div class="tekstbalken">
+    <div class="tekstvak">Willem II wordt vaak “De Tricolores” genoemd vanwege hun kenmerkende clubkleuren rood, wit en blauw, die ook in het clublogo terugkomen. Deze kleuren zijn niet zomaar gekozen: ze verwijzen naar de Nederlandse vlag en geven een sterk nationaal en lokaal gevoel. De club is vernoemd naar koning Willem II, die een belangrijke historische band heeft met de stad Tilburg. Dit geeft de club een uniek karakter, waarin trots en traditie centraal staan.Het clubgevoel bij Willem II is enorm hecht, met een trouwe aanhang die bekendstaat om hun passie, loyaliteit en betrokkenheid. Het stadion, het Koning Willem II Stadion, is vaak een plek waar supporters voor een vol en sfeervol huis zorgen, wat het voor spelers extra motiverend maakt. De identiteit van Willem II draait om doorzetten, vechten en trots zijn op je afkomst – waarden die goed aansluiten bij de Tilburgse mentaliteit.</div>
+    <div class="tekstvak">Een van de meest glorieuze periodes in de geschiedenis van Willem II was aan het einde van de jaren 1990. Na een sterke Eredivisie-positie in het seizoen 1998/1999 kwalificeerde Willem II zich voor de UEFA Champions League, het grootste clubtoernooi van Europa. Dit was een enorme prestatie voor een club buiten de traditionele Nederlandse top drie (Ajax, PSV en Feyenoord).In dat seizoen speelde Willem II Europese wedstrijden tegen grote namen en was het zichtbaar op het internationale toneel, wat het imago van de club enorm versterkte. Hoewel ze zich niet plaatsten voor de knock-outfase, werden hun optredens gezien als inspirerend en een bewijs dat met goed teamwerk en vastberadenheid ook kleinere clubs kunnen schitteren.Dit avontuur blijft een belangrijk verhaal in de clubgeschiedenis, waar fans nog steeds trots op terugkijken. Het gaf Willem II een plek in het Europese voetbal en liet zien dat de club meer kan dan alleen overleven in de Nederlandse competitie.</div>
+    <div class="tekstvak">Willem II heeft in zijn bestaan vaak de strijd gevoerd om in de Eredivisie te blijven. De club staat bekend als een echte “vechtclub”: ondanks tegenslagen, zoals degradaties naar de Eerste Divisie, vinden ze altijd weer hun weg terug naar de hoogste voetbaldivisie van Nederland. Dit patroon van vallen en opstaan maakt het verhaal van Willem II bijzonder en geeft de club een herkenbare veerkracht.Deze wisselende resultaten hebben ook geleid tot spannende seizoenen waarin de club alles op alles moest zetten om te overleven. De supporters zijn hierbij een belangrijke factor: hun steun is ongekend en vaak doorslaggevend in belangrijke wedstrijden. Dit heeft er ook voor gezorgd dat Willem II een reputatie heeft opgebouwd van een team dat nooit opgeeft en altijd blijft knokken, wat ook het karakter van de club perfect samenvat.</div>
+</div>
+
+<!-- Eén breed tekstvak zonder input -->
+<div class="tekstvak-breed">
+<h2>Acueel Nieuws</h2>
+  <p>
+<strong>📅 Hoofdstuk 1:</strong>                                                                       
+Vertrekkende Spelers – Winter 2025
+In de winterstop van het seizoen 2024–2025 heeft Willem II afscheid genomen van enkele spelers. Valentino Vermeulen, een rechtsback die eerder speelde voor Borussia Dortmund II, zag zijn contract op 7 december 2024 in onderling overleg ontbonden worden. Hij was eerder dit seizoen al teruggezet naar het tweede elftal.Daarnaast vertrok Khaled Razak op huurbasis naar Roda JC, terwijl Thijs Oosting zijn weg vond naar FC Groningen. Ook Michael de Leeuw, voormalig topscorer van de club, verliet Willem II en sloot zich aan bij SC Cambuur. Deze vertrekkers markeren een periode van verjonging en herstructurering binnen de club.
+<strong>🏆 Hoofdstuk 2:</strong>                                                                                
+De Play-offs – Strijd om PromotieNa het behalen van het kampioenschap in de Keuken Kampioen Divisie in mei 2024, begon Willem II het seizoen 2024–2025 met hoge verwachtingen. Echter, het seizoen kende zijn uitdagingen. De club begon het seizoen met wisselende resultaten, wat leidde tot het ontslag van hoofdtrainer Reinier Robbemond na een teleurstellende nederlaag tegen NAC Breda.Ondanks de turbulente start, herpakte Willem II zich en plaatste zich voor de play-offs om promotie naar de Eredivisie. In de halve finale troffen ze FC Dordrecht, een team met een sterke aanvalslinie. De wedstrijden waren spannend, maar Willem II bewees zijn veerkracht en kwalificeerde zich voor de finale.In de finale stonden ze tegenover SC Cambuur, een club met een rijke geschiedenis in de Eredivisie. Na twee zenuwslopende wedstrijden, waarin Willem II zijn ervaring en teamgeest toonde, werd de promotie naar de Eredivisie veiliggesteld. Het stadion in Tilburg ontplofte van vreugde, en de stad vierde het succes van hun geliefde club.
+<strong>🏟️ Hoofdstuk 3</strong>                                                                    
+Keuken Kampioen Divisie in TilburgMet de promotie naar de Eredivisie kwam er een einde aan het tijdperk in de Keuken Kampioen Divisie voor Willem II. De club had bewezen dat ze tot de top van de Eerste Divisie behoorden, maar de focus verschuift nu naar het versterken van de selectie en hetaanpassen aan het hogere niveau.In Tilburg blijft de Keuken Kampioen Divisie echter een belangrijk onderwerp. De stad kijkt met belangstelling naar de prestaties van de andere clubs in de competitie, zoals FC Eindhoven en NAC Breda, die strijden voor promotie. De rivaliteit en passie voor het lokale voetbal blijven de stad kenmerken, zelfs nu Willem II weer op het hoogste niveau speelt.</p>
+</div>
+
+ <img class="ajaxvsWillemII" src="https://www.soccernews.nl/wp-content/uploads/2025/04/wout-weghorst-ajax-willem-ii-13-04-2025-869x579.jpg" alt="Foto">
+ <img class="psvvsWillemII" src="https://images0.persgroep.net/rcs/mElc-HDAxRD60tM1BA9o2v2p_Rw/diocontent/248947210/_fill/1350/900/?appId=21791a8992982cd8da851550a453bd7f&quality=0.9" alt="Foto">
+ <img class="feyenoordvsWillemII" src="https://cdn.imago-images.com/bild/sp/1048745646/s.jpg" alt="Foto">
+ <img class="twentevsWillemII" src="https://r.testifier.nl/Acbs8526SDKI/resizing_type:fill/watermark:Pro+Shots+%2F+Toin+Damen/width:1200/height:800/plain/https%3A%2F%2Fs3-newsifier.ams3.digitaloceanspaces.com%2Ftwenteinsite.nl%2Fimages%2F2025-01%2Fmichel-vlap-willem-ii-6783afd70e2b3.jpg" alt="Foto">
+
+<!-- Eén breed tekstvak zonder input -->
+<div class="tekstvak-ervaring">
+<h2>Mooie ervaring</h2>
+  <p>Willem II keerde in het seizoen 2024/2025 terug naar de Eredivisie na twee jaar afwezigheid. Het was een uitdagend seizoen voor de Tilburgers, die uiteindelijk op de vijftiende plaats eindigden met 24 punten uit 24 wedstrijden. Ze wisten zes wedstrijden te winnen, speelden zes keer gelijk en verloren er twaalf. Tegen de traditionele topclubs had Willem II het zwaar. Beide wedstrijden tegen Ajax gingen verloren. Tegen Feyenoord wisten ze thuis knap een gelijkspel uit het vuur te slepen, met doelpunten van Igor Paixão voor Feyenoord en Jesse Bosch voor Willem II. In de ontmoeting met PSV in Eindhoven verraste Willem II met een 1-1 gelijkspel; Noa Lang scoorde voor PSV en Mickaël Tirpan maakte de gelijkmaker. De uitwedstrijd tegen FC Twente verliep teleurstellend, met een zware 6-2 nederlaag. Ondanks het magere resultaat tegen deze sterke tegenstanders – slechts één punt uit vier wedstrijden – toonde Willem II karakter in andere duels. Dankzij veerkracht en strijdlust slaagde de ploeg erin om zich te handhaven in de Eredivisie. Het seizoen bood waardevolle ervaring en vormt een basis waarop Willem II verder kan bouwen.</p>
+</div>
+
+<p>Wie is een legendarische speler van Willem II?</p>
+<button onclick="checkAntwoord('Marc Overmars')">Marc Overmars</button>
+<button onclick="checkAntwoord('Lionel Messi')">Lionel Messi</button>
+
+<script>
+function checkAntwoord(antwoord) {
+    if (antwoord === 'Marc Overmars') {
+        alert("✅ Correct!");
+    } else {
+        alert("❌ Probeer het opnieuw!");
+    }
+}
+</script>
+
+<p id="klok" style="font-weight: bold; font-size: 18px;"></p>
+
+<script>
+    const input = document.getElementById('favorietInput');
+    const verzendKnop = document.getElementById('verzendKnop');
+    const verwijderKnop = document.getElementById('verwijderKnop');
+
+    verzendKnop.addEventListener('click', () => {
+        const speler = input.value.trim();
+        if (!speler) {
+            alert('Typ alsjeblieft een naam in!');
+            return;
+        }
+        let favorieten = JSON.parse(localStorage.getItem('favorieteSpelers')) || [];
+        favorieten.push(speler);
+        localStorage.setItem('favorieteSpelers', JSON.stringify(favorieten));
+        alert('Favoriete speler opgeslagen!');
+        input.value = '';
+    });
+
+    verwijderKnop.addEventListener('click', () => {
+        if (confirm('Weet je zeker dat je alle opgeslagen favorieten wilt verwijderen?')) {
+            localStorage.removeItem('favorieteSpelers');
+            alert('Favorietenlijst is verwijderd.');
+        }
+    });
+</script>
+
+</body>
+</html>
